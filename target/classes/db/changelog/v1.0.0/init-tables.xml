@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="0" author="Egor Yahimovich" runOnChange="true">
+        <sql>CREATE EXTENSION IF NOT EXISTS "uuid-ossp";</sql>
+    </changeSet>
+
+    <changeSet id="1" author="Egor Yahimovich">
+        <createTable tableName="roles">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="Egor Yahimovich">
+        <createTable tableName="users">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_name" type="VARCHAR(100)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Egor Yahimovich">
+        <createTable tableName="user_roles">
+            <column name="user_id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 constraintName="fk_user_roles_user"/>
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="role_id"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 constraintName="fk_user_roles_role"/>
+    </changeSet>
+
+    <changeSet id="insert-default-roles" author="Egor Yahimovich">
+        <insert tableName="roles">
+            <column name="id" valueComputed="gen_random_uuid()" />
+            <column name="name" value="USER" />
+        </insert>
+        <insert tableName="roles">
+            <column name="id" valueComputed="gen_random_uuid()" />
+            <column name="name" value="ADMIN" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="Egor Yahimovich">
+        <createTable tableName="cards">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="card_number_encrypted" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiration_date" type="DATE"/>
+            <column name="status" type="VARCHAR(20)"/>
+            <column name="balance" type="DECIMAL(19, 2)" defaultValueNumeric="0.00"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="cards" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 constraintName="fk_cards_user"/>
+    </changeSet>
+
+    <changeSet id="5" author="Egor Yahimovich">
+        <createTable tableName="transactions">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="card_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(20)"/>
+            <column name="amount" type="DECIMAL(19,2)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="timestamp" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="transactions" baseColumnNames="card_id"
+                                 referencedTableName="cards" referencedColumnNames="id"
+                                 constraintName="fk_transactions_card"/>
+    </changeSet>
+
+    <changeSet id="6" author="Egor Yahimovich">
+        <createTable tableName="card_limits">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="card_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="daily_limit" type="DECIMAL(19,2)" defaultValueNumeric="0.00"/>
+            <column name="monthly_limit" type="DECIMAL(19,2)" defaultValueNumeric="0.00"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="card_limits" baseColumnNames="card_id"
+                                 referencedTableName="cards" referencedColumnNames="id"
+                                 constraintName="fk_limits_card"/>
+    </changeSet>
+
+    <changeSet id="7" author="Egor Yahimovich">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="refresh_tokens"/>
+            </not>
+        </preConditions>
+        <createTable tableName="refresh_tokens">
+            <column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="token" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ip_address" type="VARCHAR(100)"/>
+            <column name="expiry_date" type="TIMESTAMP"/>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="refresh_tokens" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 constraintName="fk_refresh_tokens_user"/>
+    </changeSet>
+
+
+</databaseChangeLog>

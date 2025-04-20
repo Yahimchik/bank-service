@@ -1,0 +1,13 @@
+com\example\bankcards\service\CardStatusUpdaterServiceTest.class
+com\example\bankcards\service\UserServiceTest.class
+com\example\bankcards\data\TransactionTestData.class
+com\example\bankcards\data\UserTestData.class
+com\example\bankcards\service\AuthenticationServiceTest.class
+com\example\bankcards\service\CardServiceTest.class
+com\example\bankcards\data\RefreshTokenTestData.class
+com\example\bankcards\data\RoleTestData.class
+com\example\bankcards\service\CardCryptoServiceTest.class
+com\example\bankcards\service\CardLimitServiceTest.class
+com\example\bankcards\service\TransactionServiceTest.class
+com\example\bankcards\service\RefreshTokenServiceTest.class
+com\example\bankcards\data\CardTestData.class

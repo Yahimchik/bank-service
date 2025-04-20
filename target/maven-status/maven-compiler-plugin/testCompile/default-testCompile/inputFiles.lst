@@ -1,0 +1,13 @@
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\data\CardTestData.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\data\RefreshTokenTestData.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\data\RoleTestData.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\data\TransactionTestData.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\data\UserTestData.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\AuthenticationServiceTest.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\CardCryptoServiceTest.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\CardLimitServiceTest.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\CardServiceTest.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\CardStatusUpdaterServiceTest.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\RefreshTokenServiceTest.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\TransactionServiceTest.java
+D:\PROGRAMMING\JavaProjects\bank-cards\src\test\java\com\example\bankcards\service\UserServiceTest.java

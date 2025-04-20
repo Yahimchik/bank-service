@@ -1,0 +1,29 @@
+server:
+  port: 9080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/cards_db
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+  application:
+    security:
+      jwt:
+        secret:
+          access: 2cKYszGG9GYs8vT6zAlXMGxgUG+Evf7G3MTk5Q0TSjte42vX02+VwVtb+/rzkjydspol09wEc+jusPnvgy//qw==
+          refresh: cH79ZXZg3R4/7Ln44kwdM4HENomxpjFAQW6qszDRKbKf9wGhMYDC1JbRNMzbA7GWJFkww/F4mNYH39rqd75A4Q==
+      crypto:
+        secret: 26C7mFn/ZOTMq1+caJYNDw==
+
