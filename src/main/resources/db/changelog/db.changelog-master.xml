@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <include file="/v1.0.0/init-tables.xml" relativeToChangelogFile="true"/>
+    <include file="/v1.0.0/add-field-to-card-limits-table.xml" relativeToChangelogFile="true"/>
+    <include file="/v1.0.0/add-field-to-cards-table.xml" relativeToChangelogFile="true"/>
+    <include file="/v1.0.0/add-field-to-users-table.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

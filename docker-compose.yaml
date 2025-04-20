@@ -1,0 +1,29 @@
+
+services:
+
+  adminer:
+    image: adminer
+    restart: on-failure
+    ports:
+      - "8092:8080"
+
+  postgres:
+    image: postgres:15
+    container_name: card-postgres
+    restart: on-failure
+    environment:
+      POSTGRES_DB: cards_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+
+  service-container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9080:9080"
+    restart: on-failure
+    depends_on:
+      - postgres
