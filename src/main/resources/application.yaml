@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
 #    url: jdbc:postgresql://localhost:5433/cards_db #Для запуска в IDEA
-    url: jdbc:postgresql://host.docker.internal:5433/cards_db #Для запуска через Docker
+    url: jdbc:postgresql://host.docker.internal:5434/cards_db #Для запуска через Docker
     username: user
     password: password
   jpa:
